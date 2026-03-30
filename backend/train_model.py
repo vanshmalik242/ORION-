@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 import joblib
 
-# Load dataset
+
 train_path = "dataset/KDDTrain+.txt"
 
 columns = [
@@ -21,7 +21,7 @@ columns = [
 
 df = pd.read_csv(train_path, names=columns)
 
-# ✅ KEEP ONLY FEATURES YOU CAN EXTRACT FROM PACKETS
+# ONLY FEATURES WE CAN EXTRACT FROM PACKETS
 df = df[["src_bytes", "dst_bytes", "protocol_type", "label"]]
 
 # Encode protocol
