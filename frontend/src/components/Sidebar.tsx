@@ -14,11 +14,13 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 h-screen glass border-r border-slate-800 flex flex-col">
-      <div className="p-6 border-b border-slate-800">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent flex items-center gap-2">
-          <AlertTriangle className="text-blue-500" />
-          IDS Portal
+    <aside className="w-64 h-screen bg-[#0b0f19] border-r border-slate-800/50 flex flex-col z-20">
+      <div className="p-6 pb-8">
+        <h1 className="text-3xl font-extrabold text-slate-100 flex items-center gap-2 tracking-widest pl-2">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+            <span className="text-white text-lg leading-none">O</span>
+          </div>
+          RION
         </h1>
       </div>
       <nav className="flex-1 p-4 space-y-2">

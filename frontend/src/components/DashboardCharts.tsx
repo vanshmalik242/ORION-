@@ -1,6 +1,7 @@
 "use client";
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip, Cell, PieChart, Pie } from 'recharts';
+import { motion } from 'framer-motion';
 
 export function DashboardCharts() {
   const radarData = [
@@ -20,7 +21,13 @@ export function DashboardCharts() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full h-[300px]">
-      <div className="h-full w-full relative group">
+      <motion.div 
+        className="h-full w-full relative group"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
+        whileHover={{ scale: 1.02 }}
+      >
         <h3 className="text-sm font-semibold text-slate-400 absolute top-0 left-0 z-10 transition-colors group-hover:text-blue-400">Threat Vectors</h3>
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
@@ -34,8 +41,15 @@ export function DashboardCharts() {
             />
           </RadarChart>
         </ResponsiveContainer>
-      </div>
-      <div className="h-full w-full relative flex items-center justify-center group">
+      </motion.div>
+
+      <motion.div 
+        className="h-full w-full relative flex items-center justify-center group"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+        whileHover={{ scale: 1.02 }}
+      >
         <h3 className="text-sm font-semibold text-slate-400 absolute top-[-5px] left-0 z-10 transition-colors group-hover:text-blue-400">Severity Distribution</h3>
         <div className="relative w-full h-full mt-4">
             <ResponsiveContainer width="100%" height="100%">
@@ -65,11 +79,24 @@ export function DashboardCharts() {
             </PieChart>
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent transform translate-y-1">ORION</span>
-                <span className="text-[10px] text-slate-500 tracking-[0.3em] font-semibold mt-1 uppercase">Active</span>
+                <motion.span 
+                  className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent transform translate-y-1"
+                  animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                  style={{ backgroundSize: '200% auto' }}
+                >
+                  ORION
+                </motion.span>
+                <motion.span 
+                  className="text-[10px] text-slate-500 tracking-[0.3em] font-semibold mt-1 uppercase"
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  Active
+                </motion.span>
             </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
