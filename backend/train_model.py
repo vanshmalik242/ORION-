@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 
 train_path = "dataset/KDDTrain+.txt"
@@ -31,16 +33,24 @@ df["protocol_type"] = le.fit_transform(df["protocol_type"])
 # Convert label to binary
 df["label"] = df["label"].apply(lambda x: 0 if x == "normal" else 1)
 
-# Split
-X = df[["src_bytes", "dst_bytes", "protocol_type"]]
+X = df.drop("label", axis=1)
 y = df["label"]
 
-# Train
+# 1. Split the data (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# 2. Train the model ONLY on the training data
 model = RandomForestClassifier()
-model.fit(X, y)
-
-# Save model + encoder
+model.fit(X_train, y_train)
+# 3. Ask the model to predict the test dataset
+y_pred = model.predict(X_test)
+# 4. Calculate actual metrics!
+accuracy = accuracy_score(y_test, y_pred) * 100
+precision = precision_score(y_test, y_pred) * 100
+recall = recall_score(y_test, y_pred) * 100
+print(f"Model trained successfully 🚀")
+print(f"➜ Accuracy:  {accuracy:.2f}%")
+print(f"➜ Precision: {precision:.2f}%")
+print(f"➜ Recall:    {recall:.2f}%")
+# Save the model
 joblib.dump(model, "model.pkl")
 joblib.dump(le, "encoder.pkl")
-
-print("Model trained successfully 🚀")
